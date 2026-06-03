@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { useDarkMode } from '../Context/DarkModeContext'
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001'
+
 function Contact() {
   const { isDarkMode } = useDarkMode()
   const [formData, setFormData] = useState({
@@ -30,7 +32,7 @@ function Contact() {
     setSuccess('')
 
     try {
-      const response = await fetch('http://localhost:5001/api/submit-form', {
+      const response = await fetch(`${API_URL}/api/submit-form`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -38,6 +40,7 @@ function Contact() {
         body: JSON.stringify({
           fullName: formData.name,
           email: formData.email,
+          phone: formData.phone,
           country: formData.insuranceType,
           about: formData.message
         })
@@ -46,7 +49,7 @@ function Contact() {
       const data = await response.json()
 
       if (!response.ok) {
-        throw new Error(data.message || 'Failed to submit form')
+        throw new Error(data.error || data.message || 'Failed to submit form')
       }
 
       setSuccess('Thank you! Your form has been submitted successfully. We will contact you soon.')
