@@ -1,0 +1,305 @@
+import React, { useState, useEffect } from 'react'
+
+function Hero() {
+  const [scrollY, setScrollY] = useState(0)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  return (
+    <section id="home" className="relative w-full min-h-screen bg-linear-to-b from-blue-50 via-sky-50 to-white overflow-hidden" style={{ perspective: '1000px' }}>
+      {/* Decorative Gradient Blobs with Parallax */}
+      <div 
+        className="absolute top-20 right-10 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"
+        style={{ transform: `translateY(${scrollY * 0.5}px) translateZ(0)` }}
+      ></div>
+      <div 
+        className="absolute -bottom-8 left-10 w-72 h-72 bg-cyan-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"
+        style={{ transform: `translateY(${scrollY * -0.3}px) translateZ(0)` }}
+      ></div>
+      
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center min-h-[550px]">
+          
+          {/* Left Content with Parallax */}
+          <div 
+            className="flex flex-col justify-center space-y-6"
+            style={{ transform: `translateY(${scrollY * 0.3}px) translateZ(0)` }}
+          >
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-blue-200 rounded-full w-fit shadow-sm hover:shadow-md transition-all duration-300">
+              <svg className="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+              </svg>
+              <span className="text-sm font-semibold text-gray-800">Trusted Insurance Provider</span>
+            </div>
+
+            {/* Heading */}
+            <div>
+              <h1 className="text-5xl sm:text-5xl lg:text-6xl font-black text-gray-900 leading-tight">
+                Protect What <br />
+                <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-blue-500">
+                  Matters Most
+                </span>
+              </h1>
+            </div>
+
+            {/* Description */}
+            <p className="text-lg text-gray-700 leading-relaxed max-w-xl">
+              Get comprehensive insurance coverage with affordable premiums and instant claim processing. Your peace of mind is our priority.
+            </p>
+
+            {/* Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 pt-2">
+              <button className="group px-8 py-3 bg-linear-to-r from-blue-600 to-blue-700 text-white font-bold rounded-lg shadow-lg hover:shadow-2xl hover:shadow-blue-500/40 transition-all duration-300 hover:scale-105 active:scale-95">
+                <span className="flex items-center justify-center gap-2">
+                  Get Started
+                  <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </span>
+              </button>
+              
+              <button className="group px-8 py-3 bg-white border-2 border-blue-600 text-blue-600 font-bold rounded-lg hover:bg-blue-50 transition-all duration-300">
+                Learn More
+              </button>
+            </div>
+
+            {/* Stats */}
+            <div className="grid grid-cols-3 gap-6 pt-8">
+              <div className="flex flex-col items-start">
+                <div className="flex items-center gap-2">
+                  <svg className="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M17 20h5v-2a3 3 0 00-5.856-1.487M16 7a4 4 0 11-8 0 4 4 0 018 0zM9 20H4v-2a6 6 0 0112 0v2H9z"/>
+                  </svg>
+                  <p className="text-3xl font-bold text-blue-600">500K+</p>
+                </div>
+                <p className="text-gray-700 font-medium text-sm mt-1">Customers</p>
+              </div>
+              
+              <div className="flex flex-col items-start">
+                <div className="flex items-center gap-2">
+                  <svg className="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                  <p className="text-3xl font-bold text-blue-600">99%</p>
+                </div>
+                <p className="text-gray-700 font-medium text-sm mt-1">Approval</p>
+              </div>
+              
+              <div className="flex flex-col items-start">
+                <div className="flex items-center gap-2">
+                  <svg className="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                  <p className="text-3xl font-bold text-blue-600">24/7</p>
+                </div>
+                <p className="text-gray-700 font-medium text-sm mt-1">Support</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Visual Element with 3D Parallax */}
+          <div className="hidden md:flex justify-center items-center perspective">
+            <div 
+              className="relative w-full h-96 flex items-center justify-center"
+              style={{ 
+                transform: `translateY(${scrollY * -0.4}px) translateZ(100px)`,
+                transformStyle: 'preserve-3d'
+              }}
+            >
+              {/* Floating Decoration Circles */}
+              <div 
+                className="absolute top-10 left-10 w-16 h-16 bg-white rounded-full shadow-lg flex items-center justify-center border-2 border-blue-100 hover:shadow-xl transition-all"
+                style={{ transform: `translateZ(50px)` }}
+              >
+                <svg className="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M18.92 6.01C18.57 2.18 15.38 0 11.99 0c-3.45 0-6.5 2.2-7.73 5.3C2.5 5.7 0 8.2 0 11c0 3.32 2.68 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.99z"/>
+                </svg>
+              </div>
+
+              <div 
+                className="absolute bottom-10 left-20 w-20 h-20 bg-white rounded-full shadow-lg flex items-center justify-center border-2 border-blue-100 hover:shadow-xl transition-all"
+                style={{ transform: `translateZ(30px)` }}
+              >
+                <svg className="w-10 h-10 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M3 12l2-4m0 0l7-4 5 10L15 8m6 0l2 4m-2-4v10c0 1-1 2-2 2H5c-1 0-2-1-2-2V8m0 0L3 4m0 0h10m0 0l4 4"/>
+                </svg>
+              </div>
+
+              <div 
+                className="absolute top-32 right-10 w-16 h-16 bg-white rounded-full shadow-lg flex items-center justify-center border-2 border-blue-100 hover:shadow-xl transition-all"
+                style={{ transform: `translateZ(40px)` }}
+              >
+                <svg className="w-8 h-8 text-red-500" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+              </div>
+
+              <div 
+                className="absolute right-0 bottom-5 w-20 h-20 bg-white rounded-full shadow-lg flex items-center justify-center border-2 border-blue-100 hover:shadow-xl transition-all"
+                style={{ transform: `translateZ(35px)` }}
+              >
+                <svg className="w-10 h-10 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-0.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l0.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-0.9-2-2-2z"/>
+                </svg>
+              </div>
+
+              {/* Main Shield Card */}
+              <div 
+                className="relative z-20 bg-white rounded-2xl shadow-2xl p-8 w-72 h-80 flex items-center justify-center border-2 border-blue-100 hover:shadow-3xl hover:border-blue-300 transition-all duration-300"
+                style={{ transform: `translateZ(80px)` }}
+              >
+                <div className="relative">
+                  {/* Large Shield */}
+                  <svg className="w-56 h-56 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 20c-4.42-1.29-7-5.6-7-10V6.7L12 3.4l7 3.3V11c0 4.4-2.58 8.71-7 10z"/>
+                  </svg>
+                  
+                  {/* Family Icon Overlay */}
+                  <svg className="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 text-blue-500 opacity-40" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+export default Hero
+          
+          {/* Left Content */}
+          <div className="flex flex-col justify-center space-y-6">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-blue-200 rounded-full w-fit shadow-sm hover:shadow-md transition-all duration-300">
+              <svg className="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+              </svg>
+              <span className="text-sm font-semibold text-gray-800">Trusted Insurance Provider</span>
+            </div>
+
+            {/* Heading */}
+            <div>
+              <h1 className="text-5xl sm:text-5xl lg:text-6xl font-black text-gray-900 leading-tight">
+                Protect What <br />
+                <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-blue-500">
+                  Matters Most
+                </span>
+              </h1>
+            </div>
+
+            {/* Description */}
+            <p className="text-lg text-gray-700 leading-relaxed max-w-xl">
+              Get comprehensive insurance coverage with affordable premiums and instant claim processing. Your peace of mind is our priority.
+            </p>
+
+            {/* Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 pt-2">
+              <button className="group px-8 py-3 bg-linear-to-r from-blue-600 to-blue-700 text-white font-bold rounded-lg shadow-lg hover:shadow-2xl hover:shadow-blue-500/40 transition-all duration-300 hover:scale-105 active:scale-95">
+                <span className="flex items-center justify-center gap-2">
+                  Get Started
+                  <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </span>
+              </button>
+              
+              <button className="group px-8 py-3 bg-white border-2 border-blue-600 text-blue-600 font-bold rounded-lg hover:bg-blue-50 transition-all duration-300">
+                Learn More
+              </button>
+            </div>
+
+            {/* Stats */}
+            <div className="grid grid-cols-3 gap-6 pt-8">
+              <div className="flex flex-col items-start">
+                <div className="flex items-center gap-2">
+                  <svg className="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M17 20h5v-2a3 3 0 00-5.856-1.487M16 7a4 4 0 11-8 0 4 4 0 018 0zM9 20H4v-2a6 6 0 0112 0v2H9z"/>
+                  </svg>
+                  <p className="text-3xl font-bold text-blue-600">500K+</p>
+                </div>
+                <p className="text-gray-700 font-medium text-sm mt-1">Customers</p>
+              </div>
+              
+              <div className="flex flex-col items-start">
+                <div className="flex items-center gap-2">
+                  <svg className="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                  <p className="text-3xl font-bold text-blue-600">99%</p>
+                </div>
+                <p className="text-gray-700 font-medium text-sm mt-1">Approval</p>
+              </div>
+              
+              <div className="flex flex-col items-start">
+                <div className="flex items-center gap-2">
+                  <svg className="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                  <p className="text-3xl font-bold text-blue-600">24/7</p>
+                </div>
+                <p className="text-gray-700 font-medium text-sm mt-1">Support</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Visual Element */}
+          <div className="hidden md:flex justify-center items-center">
+            <div className="relative w-full h-96 flex items-center justify-center">
+              {/* Floating Decoration Circles */}
+              <div className="absolute top-10 left-10 w-16 h-16 bg-white rounded-full shadow-lg flex items-center justify-center border-2 border-blue-100 hover:shadow-xl transition-all">
+                <svg className="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M18.92 6.01C18.57 2.18 15.38 0 11.99 0c-3.45 0-6.5 2.2-7.73 5.3C2.5 5.7 0 8.2 0 11c0 3.32 2.68 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.99z"/>
+                </svg>
+              </div>
+
+              <div className="absolute bottom-10 left-20 w-20 h-20 bg-white rounded-full shadow-lg flex items-center justify-center border-2 border-blue-100 hover:shadow-xl transition-all">
+                <svg className="w-10 h-10 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M3 12l2-4m0 0l7-4 5 10L15 8m6 0l2 4m-2-4v10c0 1-1 2-2 2H5c-1 0-2-1-2-2V8m0 0L3 4m0 0h10m0 0l4 4"/>
+                </svg>
+              </div>
+
+              <div className="absolute top-32 right-10 w-16 h-16 bg-white rounded-full shadow-lg flex items-center justify-center border-2 border-blue-100 hover:shadow-xl transition-all">
+                <svg className="w-8 h-8 text-red-500" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+              </div>
+
+              <div className="absolute right-0 bottom-5 w-20 h-20 bg-white rounded-full shadow-lg flex items-center justify-center border-2 border-blue-100 hover:shadow-xl transition-all">
+                <svg className="w-10 h-10 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-0.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l0.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-0.9-2-2-2z"/>
+                </svg>
+              </div>
+
+              {/* Main Shield Card */}
+              <div className="relative z-20 bg-white rounded-2xl shadow-2xl p-8 w-72 h-80 flex items-center justify-center border-2 border-blue-100 hover:shadow-3xl hover:border-blue-300 transition-all duration-300">
+                <div className="relative">
+                  {/* Large Shield */}
+                  <svg className="w-56 h-56 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 20c-4.42-1.29-7-5.6-7-10V6.7L12 3.4l7 3.3V11c0 4.4-2.58 8.71-7 10z"/>
+                  </svg>
+                  
+                  {/* Family Icon Overlay */}
+                  <svg className="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 text-blue-500 opacity-40" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+export default Hero
