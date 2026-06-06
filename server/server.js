@@ -24,14 +24,13 @@ const escapeHtml = (value = '') => String(value)
 //   }
 // });
 const mailTransporter = nodemailer.createTransport({
-  service: "gmail",
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false,
   auth: {
     user: process.env.GMAIL_USER,
     pass: process.env.GMAIL_APP_PASSWORD,
   },
-  connectionTimeout: 30000,
-  greetingTimeout: 30000,
-  socketTimeout: 30000,
 });
 
 if (process.env.NODE_ENV !== "production") {
@@ -45,6 +44,11 @@ const sendSubmissionEmail = async ({ fullName, email, phone, country, about }) =
   if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
     throw new Error('Gmail email settings are missing');
   }
+
+  console.log("Sending email...");
+  console.log("User:", process.env.GMAIL_USER);
+  console.log("Password exists:", !!process.env.GMAIL_APP_PASSWORD);
+
 
   await mailTransporter.sendMail({
     from: `"Insurance Website" <${process.env.GMAIL_USER}>`,
