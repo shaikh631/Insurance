@@ -1,6 +1,5 @@
 import express from 'express';
 import cors from 'cors';
-import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import nodemailer from 'nodemailer';
 
@@ -8,7 +7,7 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const CONTACT_EMAIL_TO = process.env.CONTACT_EMAIL_TO || 'as9251145@gamil.com';
+const CONTACT_EMAIL_TO = process.env.CONTACT_EMAIL_TO || 'as9251145@gmail.com';
 
 const escapeHtml = (value = '') => String(value)
   .replace(/&/g, '&amp;')
@@ -17,13 +16,30 @@ const escapeHtml = (value = '') => String(value)
   .replace(/"/g, '&quot;')
   .replace(/'/g, '&#039;');
 
+// const mailTransporter = nodemailer.createTransport({
+//   service: 'gmail',
+//   auth: {
+//     user: process.env.GMAIL_USER,
+//     pass: process.env.GMAIL_APP_PASSWORD
+//   }
+// });
 const mailTransporter = nodemailer.createTransport({
-  service: 'gmail',
+  service: "gmail",
   auth: {
     user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_APP_PASSWORD
-  }
+    pass: process.env.GMAIL_APP_PASSWORD,
+  },
+  connectionTimeout: 30000,
+  greetingTimeout: 30000,
+  socketTimeout: 30000,
 });
+
+if (process.env.NODE_ENV !== "production") {
+  mailTransporter.verify((error) => {
+    if (error) console.log("SMTP Error:", error);
+    else console.log("SMTP Ready");
+  });
+}
 
 const sendSubmissionEmail = async ({ fullName, email, phone, country, about }) => {
   if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
@@ -60,8 +76,8 @@ const sendSubmissionEmail = async ({ fullName, email, phone, country, about }) =
 
 // Middleware
 app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
@@ -84,7 +100,7 @@ app.post('/api/submit-form', async (req, res) => {
       message: 'Form submitted successfully'
     });
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Error:', error.message);
     res.status(500).json({ message: 'Error submitting form', error: error.message });
   }
 });
