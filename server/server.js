@@ -8,7 +8,7 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const CONTACT_EMAIL_TO = 'ayan.codes9819@gmail.com';
+const CONTACT_EMAIL_TO = process.env.CONTACT_EMAIL_TO || 'as9251145@gamil.com';
 
 const escapeHtml = (value = '') => String(value)
   .replace(/&/g, '&amp;')

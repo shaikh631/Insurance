@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import { useDarkMode } from '../Context/DarkModeContext'
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001'
+// const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001'
+const API_URL = import.meta.env.VITE_API_URL;
+console.log("API_URL =", API_URL);
 
 function Contact() {
   const { isDarkMode } = useDarkMode()
