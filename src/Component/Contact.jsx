@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
 import { useDarkMode } from '../Context/DarkModeContext'
 
-// const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001'
-const API_URL = import.meta.env.VITE_API_URL;
-console.log("API_URL =", API_URL);
+const FORMSPREE_ENDPOINT = import.meta.env.VITE_FORMSPREE_ENDPOINT
 
 function Contact() {
   const { isDarkMode } = useDarkMode()
@@ -34,21 +32,36 @@ function Contact() {
     setSuccess('')
 
     try {
-      const response = await fetch(`${API_URL}/api/submit-form`, {
+      if (!FORMSPREE_ENDPOINT) {
+        throw new Error('Form endpoint is missing')
+      }
+
+      const response = await fetch(FORMSPREE_ENDPOINT, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Accept: 'application/json',
         },
         body: JSON.stringify({
-          fullName: formData.name,
+          _subject: `New insurance form submission from ${formData.name}`,
+          name: formData.name,
           email: formData.email,
           phone: formData.phone,
-          country: formData.insuranceType,
-          about: formData.message
+          insuranceType: formData.insuranceType,
+          message: formData.message
         })
       })
 
-      const data = await response.json()
+      const responseText = await response.text()
+      let data = {}
+
+      if (responseText) {
+        try {
+          data = JSON.parse(responseText)
+        } catch {
+          data = { message: responseText }
+        }
+      }
 
       if (!response.ok) {
         throw new Error(data.error || data.message || 'Failed to submit form')

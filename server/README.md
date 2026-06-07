@@ -1,6 +1,6 @@
 # Insurance Form Email API
 
-This backend receives insurance form submissions and sends the details to `ayan.codes9819@gmail.com`.
+This backend receives insurance form submissions and sends the details with the Resend HTTP API.
 
 ## Setup
 
@@ -14,11 +14,12 @@ Update `.env`:
 
 ```env
 PORT=5000
-GMAIL_USER=your_gmail_account
-GMAIL_APP_PASSWORD=your_gmail_app_password
+RESEND_API_KEY=re_xxxxxxxxx
+RESEND_FROM_EMAIL=Insurance Website <onboarding@resend.dev>
+CONTACT_EMAIL_TO=your_email@example.com
 ```
 
-Use a Gmail App Password for `GMAIL_APP_PASSWORD`. Do not use your normal Gmail password.
+Use a verified Resend sender in `RESEND_FROM_EMAIL` when sending to real recipients.
 
 ## Install
 

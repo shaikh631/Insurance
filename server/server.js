@@ -1,13 +1,14 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import nodemailer from 'nodemailer';
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 const CONTACT_EMAIL_TO = process.env.CONTACT_EMAIL_TO || 'as9251145@gmail.com';
+const RESEND_FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'Insurance Website <onboarding@resend.dev>';
+const RESEND_API_URL = 'https://api.resend.com/emails';
 
 const escapeHtml = (value = '') => String(value)
   .replace(/&/g, '&amp;')
@@ -16,44 +17,18 @@ const escapeHtml = (value = '') => String(value)
   .replace(/"/g, '&quot;')
   .replace(/'/g, '&#039;');
 
-// const mailTransporter = nodemailer.createTransport({
-//   service: 'gmail',
-//   auth: {
-//     user: process.env.GMAIL_USER,
-//     pass: process.env.GMAIL_APP_PASSWORD
-//   }
-// });
-const mailTransporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 465,
-  secure: true,
-  auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_APP_PASSWORD,
-  },
-});
-
-if (process.env.NODE_ENV !== "production") {
-  mailTransporter.verify((error) => {
-    if (error) console.log("SMTP Error:", error);
-    else console.log("SMTP Ready");
-  });
-}
-
 const sendSubmissionEmail = async ({ fullName, email, phone, country, about }) => {
-  if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
-    throw new Error('Gmail email settings are missing');
+  if (!process.env.RESEND_API_KEY) {
+    throw new Error('Resend API key is missing');
   }
 
-  console.log("Sending email...");
-  console.log("User:", process.env.GMAIL_USER);
-  console.log("Password exists:", !!process.env.GMAIL_APP_PASSWORD);
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 8000);
 
-
-  await mailTransporter.sendMail({
-    from: `"Insurance Website" <${process.env.GMAIL_USER}>`,
-    to: CONTACT_EMAIL_TO,
-    replyTo: email,
+  const payload = {
+    from: RESEND_FROM_EMAIL,
+    to: [CONTACT_EMAIL_TO],
+    reply_to: email,
     subject: `New insurance form submission from ${fullName}`,
     text: [
       'New insurance form submission',
@@ -75,7 +50,44 @@ const sendSubmissionEmail = async ({ fullName, email, phone, country, about }) =
       <p><strong>Message:</strong></p>
       <p>${escapeHtml(about).replace(/\n/g, '<br>')}</p>
     `
-  });
+  };
+
+  try {
+    const response = await fetch(RESEND_API_URL, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload),
+      signal: controller.signal
+    });
+
+    const responseText = await response.text();
+    let result = {};
+
+    if (responseText) {
+      try {
+        result = JSON.parse(responseText);
+      } catch {
+        result = { message: responseText };
+      }
+    }
+
+    if (!response.ok) {
+      throw new Error(result?.message || 'Failed to send email with Resend');
+    }
+
+    console.log('Email sent:', result?.id);
+  } catch (error) {
+    if (error.name === 'AbortError') {
+      throw new Error('Email service timed out. Please try again.');
+    }
+
+    throw error;
+  } finally {
+    clearTimeout(timeout);
+  }
 };
 
 // Middleware
@@ -111,4 +123,5 @@ app.post('/api/submit-form', async (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
+  console.log('Email provider: Resend HTTP API');
 });
