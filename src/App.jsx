@@ -1,25 +1,18 @@
 import './App.css'
-import { DarkModeProvider } from './Context/DarkModeContext'
-import Header from './Header/Header'
-import Hero from './Component/Hero'
-import Services from './Component/Services'
-import About from './Component/About'
-import Contact from './Component/Contact'
-import Footer from './Fotter/Footer'
+import { Outlet } from 'react-router-dom'
+import Header from './Component/Header'
+import Footer from './Component/Footer'
+import Breadcrumb from './Component/Breadcrumb' 
 
 function App() {
   return (
-    <DarkModeProvider>
-      <>
-        <Header />
-        <Hero />
-        <Services />
-        <About />
-        <Contact />
-        <Footer />
-      </>
-    </DarkModeProvider>
+    <>
+      <Header />
+       <Breadcrumb /> 
+      <Outlet />
+      <Footer />
+    </>
   )
 }
 
-export default App
+export default App;
