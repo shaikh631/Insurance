@@ -93,7 +93,7 @@ const HealthInsurance = ({ navigateTo }) => {
           <div className="relative">
             <div className="rounded-3xl overflow-hidden shadow-2xl">
               <img
-                src="https://images.unsplash.com/photo-1559893614829-cd4628902c4d?w=800&h=600&fit=crop"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxoy9DAUfYh2sU-YMa-XTuXeqk3dBOPa7dZsOCg2QT2EH5xyQPbrQCqfGIp-EuMHRxLVittnucbMxWaBhnimo4JJz-aq06w1PglRaiR84gHGgY3N63wGPX4RWT1_xtPYL8aAOdJ08dlS_kuMOBdbkNsZpQQeobQJleWpJmPUc_W0otDTojxYRvfkHgPMiCf3kd5Xzz6eIp4rn1hU9iA4vpJcgCA63uNrS2J1eXtXmh0ou9wmdoQvBhzFgTEetri8h9Ako-uvYZIJY"
                 alt="Healthcare Professional"
                 className="w-full h-auto object-cover"
               />

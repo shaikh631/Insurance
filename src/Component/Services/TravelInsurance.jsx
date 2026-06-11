@@ -173,7 +173,7 @@ const TravelInsurance = ({ navigateTo }) => {
             <div className="relative">
               <div className="bg-white p-6 rounded-3xl shadow-2xl">
                 <img
-                  src="https://images.unsplash.com/photo-1553531088-f352e4f54504?w=500&h=400&fit=crop"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvMluagJTDMHNWiu6Athc_cML8nGjCSzFUPBxapfrM9q2l4M7hxY3v-FusZxcsFHFSv21UYSEAo2ktt_DAWZwQemMhj3vHAZlsgkIJqtSXZjOQVOxqfp-w5wjqIFnJYVcnMb2PECOXN1QIqtfni1VXq_b8EFHSnfBRc2oXvLlMZJ86ZRheJqsFe38EdKrs8qHJ5mGohGgGVSLqAb_sAZCuXiXdgF4P7z-lDsk3Mn0w680yCkyQpJDc5ASuNp_eh6jBLh3TZVRq_so"
                   alt="Person with globe"
                   className="w-full h-96 object-cover rounded-2xl"
                 />
