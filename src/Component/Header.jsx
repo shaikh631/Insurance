@@ -66,9 +66,14 @@ function Header({ navigateTo }) {
           {/* <button className="px-6 py-2 text-[#666666] font-medium hover:opacity-80 active:scale-95 transition-all">
             Login
           </button> */}
-          <button  className="bg-[#7800ce] text-white px-6 py-2 rounded-full font-medium hover:opacity-90 active:scale-95 transition-all shadow-md">
-            Get Started
-          </button>
+             <a
+              href="https://www.bayzat.com/get-bayzat"
+              target="_blank"
+             rel="noopener noreferrer"
+               className="inline-flex items-center bg-[#7800ce] text-white px-6 py-2 rounded-full font-medium hover:opacity-90 active:scale-95 transition-all shadow-md"
+                 >
+               Get Started
+              </a>
         </div>
       </nav>
     </header>

@@ -1,5 +1,7 @@
 import React from "react";
 import logo from '../assets/logo.jpeg';
+import { Link } from "react-router-dom";
+import contact from './Contact.jsx';
 
 const Footer = () => {
   return (
@@ -25,13 +27,13 @@ const Footer = () => {
             </span>
           </div>
             <div className="flex gap-3">
-              <a href="#" className="text-[#7800ce] hover:opacity-80">
+              <a href="https://www.facebook.com/bayzatme" className="text-[#7800ce] hover:opacity-80">
                 f
               </a>
-              <a href="#" className="text-[#7800ce] hover:opacity-80">
+              <a href="https://x.com/bayzatme" className="text-[#7800ce] hover:opacity-80">
                 𝕏
               </a>
-              <a href="#" className="text-[#7800ce] hover:opacity-80">
+              <a href="https://www.linkedin.com/company/bayzat/" className="text-[#7800ce] hover:opacity-80">
                 in
               </a>
             </div>
@@ -84,9 +86,9 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="#" className="text-[#666666] hover:text-[#7800ce] text-sm transition-colors">
+                <Link to="/contact" className="text-[#666666] hover:text-[#7800ce] text-sm transition-colors">
                   Contact
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Footer from "./Footer";
 import Contact from "./Contact";
 import logos from "../index.js";
 import { useNavigate } from "react-router-dom";
@@ -38,7 +37,7 @@ const Home = () => {
       id: "vehicle",
       name: "Vehicle",
       icon: "🚗",
-        slug: "/Vehicle-Insurance",
+      slug: "/Vehicle-Insurance",
       description: "On-road protection with rapid recovery.",
       details: [
         "24/7 Roadside help",
@@ -62,7 +61,7 @@ const Home = () => {
       id: "travel",
       name: "Travel",
       icon: "✈️",
-        slug: "/Travel-Insurance",
+      slug: "/Travel-Insurance",
       description: "Protection for every journey.",
       details: [
         "Medical coverage abroad",
@@ -171,9 +170,6 @@ const handleServiceClick = (service) => {
         }
       `}</style>
 
-      {/* Header */}
-      {/* <Header navigateTo={navigateTo} /> */}
-
       {/* Hero Section */}
       <section className="relative overflow-hidden pt-16 pb-32 hero-gradient">
         <div className="max-w-7xl mx-auto px-12 grid md:grid-cols-2 items-center gap-12">
@@ -196,10 +192,10 @@ const handleServiceClick = (service) => {
             </p>
 
             <div className="flex flex-wrap gap-4 pt-4">
-              <button className="bg-[#7800ce] text-white px-8 py-3 rounded-full font-semibold hover:shadow-lg active:scale-95 transition-all">
+              <button onClick={Contact} className="bg-[#7800ce] text-white px-8 py-3 rounded-full font-semibold hover:shadow-lg active:scale-95 transition-all">
                 Get Quote
               </button>
-              <button className="border-2 border-[#cccccc] text-[#121c2a] px-8 py-3 rounded-full font-semibold hover:bg-gray-50 active:scale-95 transition-all">
+              <button slug = {'/contact'} className="border-2 border-[#cccccc] text-[#121c2a] px-8 py-3 rounded-full font-semibold hover:bg-gray-50 active:scale-95 transition-all">
                 Learn More
               </button>
             </div>
