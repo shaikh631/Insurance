@@ -1,5 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 const FORMSPREE_ENDPOINT = import.meta.env.VITE_FORMSPREE_ENDPOINT
+
+function useReveal() {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } }, { threshold: 0.1 });
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, []);
+  return [ref, visible];
+}
+
+function Reveal({ children, delay = 0 }) {
+  const [ref, visible] = useReveal();
+  return (
+    <div
+      ref={ref}
+      style={{ transitionDelay: `${delay}ms` }}
+      className={`transition-all duration-700 ease-out ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+    >
+      {children}
+    </div>
+  );
+}
 
 const locations = [
   {
@@ -123,6 +147,7 @@ export default function UserContact() {
       {/* ── Hero ── */}
       <section className="relative w-full min-h-[500px] flex items-center justify-center overflow-hidden py-20">
         {/* Bg image */}
+         <Reveal delay={100}>
         <div className="absolute inset-0 z-0">
           <img
             src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1400&fit=crop"
@@ -130,18 +155,20 @@ export default function UserContact() {
             className="w-full h-full object-cover opacity-10 blur-sm"
           />
         </div>
+        </Reveal>
         {/* Blobs */}
         <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-[#7800ce] opacity-5 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -top-24 -left-24 w-96 h-96 bg-[#712ae2] opacity-5 rounded-full blur-3xl pointer-events-none" />
-
         <div className="relative z-10 max-w-5xl mx-auto px-4 md:px-12 text-center">
           <span className="inline-block px-4 py-1.5 mb-6 text-xs font-semibold text-[#7800ce] bg-[#f0dbff] rounded-full tracking-widest">
             REACH OUT TO US
           </span>
+          <Reveal delay={100}>
           <h1 className="text-4xl md:text-6xl font-bold text-[#121c2a] mb-6 leading-tight tracking-tight">
             Get in Touch with <br className="hidden md:block" />
             <span className="text-[#7800ce]">Our Experts</span>
           </h1>
+          </Reveal>
           <p className="text-lg text-[#4d4354] max-w-2xl mx-auto leading-relaxed">
             Whether you're looking for tailored insurance solutions or streamlined HR support, our team
             is ready to guide you toward operational excellence.
@@ -150,6 +177,7 @@ export default function UserContact() {
       </section>
 
       {/* ── Bento: Form + Info ── */}
+      <Reveal delay={500}>
       <section className="px-4 md:px-12 pb-20 max-w-7xl mx-auto -mt-10 relative z-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
@@ -288,8 +316,10 @@ export default function UserContact() {
             </div>
 
           </div>
+          
         </div>
       </section>
+      </Reveal>
 
       {/* ── Office Locations ── */}
       <section className="bg-[#eff4ff] py-20 px-4 md:px-12">
