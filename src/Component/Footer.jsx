@@ -44,24 +44,24 @@ const Footer = () => {
             <h4 className="font-semibold text-[#333333] mb-4">Product</h4>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-[#666666] hover:text-[#7800ce] text-sm transition-colors">
+                <Link to="/services" className="text-[#666666] hover:text-[#7800ce] text-sm transition-colors">
                   Features
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-[#666666] hover:text-[#7800ce] text-sm transition-colors">
+                <Link to="/" className="text-[#666666] hover:text-[#7800ce] text-sm transition-colors">
                   Pricing
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-[#666666] hover:text-[#7800ce] text-sm transition-colors">
+                <Link to="/" className="text-[#666666] hover:text-[#7800ce] text-sm transition-colors">
                   Security
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-[#666666] hover:text-[#7800ce] text-sm transition-colors">
+                <Link to="/" className="text-[#666666] hover:text-[#7800ce] text-sm transition-colors">
                   Updates
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -71,19 +71,19 @@ const Footer = () => {
             <h4 className="font-semibold text-[#333333] mb-4">Company</h4>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-[#666666] hover:text-[#7800ce] text-sm transition-colors">
+                <Link to="/about" className="text-[#666666] hover:text-[#7800ce] text-sm transition-colors">
                   About
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-[#666666] hover:text-[#7800ce] text-sm transition-colors">
+                <Link to="/services" className="text-[#666666] hover:text-[#7800ce] text-sm transition-colors">
                   Blog
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-[#666666] hover:text-[#7800ce] text-sm transition-colors">
+                <Link to="/" className="text-[#666666] hover:text-[#7800ce] text-sm transition-colors">
                   Careers
-                </a>
+                </Link>
               </li>
               <li>
                 <Link to="/contact" className="text-[#666666] hover:text-[#7800ce] text-sm transition-colors">
@@ -98,23 +98,23 @@ const Footer = () => {
             <h4 className="font-semibold text-[#333333] mb-4">Legal</h4>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-[#666666] hover:text-[#7800ce] text-sm transition-colors">
+                <a href="https://www.bayzat.com/privacy-policy" className="text-[#666666] hover:text-[#7800ce] text-sm transition-colors">
                   Privacy Policy
                 </a>
               </li>
               <li>
-                <a href="#" className="text-[#666666] hover:text-[#7800ce] text-sm transition-colors">
+                <a href="https://www.bayzat.com/terms-and-conditions" className="text-[#666666] hover:text-[#7800ce] text-sm transition-colors">
                   Terms of Service
                 </a>
               </li>
               <li>
-                <a href="#" className="text-[#666666] hover:text-[#7800ce] text-sm transition-colors">
+                <a href="https://www.bayzat.com/cookie-policy" className="text-[#666666] hover:text-[#7800ce] text-sm transition-colors">
                   Cookie Policy
                 </a>
               </li>
               <li>
-                <a href="#" className="text-[#666666] hover:text-[#7800ce] text-sm transition-colors">
-                  Support
+                <a href="https://get.bayzat.com/copyright/" className="text-[#666666] hover:text-[#7800ce] text-sm transition-colors">
+                  Copy right
                 </a>
               </li>
             </ul>
@@ -128,14 +128,14 @@ const Footer = () => {
               © 2024 iBayzat Insurance Services. All rights reserved.
             </p>
             <div className="flex gap-6">
-              <a href="#" className="text-[#7800ce] text-sm hover:opacity-80">
+              <a href="https://www.bayzat.com/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-[#7800ce] text-sm hover:opacity-80">
                 Privacy Policy
               </a>
-              <a href="#" className="text-[#7800ce] text-sm hover:opacity-80">
+              <a href="https://www.bayzat.com/terms-and-conditions" target="_blank" rel="noopener noreferrer" className="text-[#7800ce] text-sm hover:opacity-80">
                 Terms of Service
               </a>
-              <a href="#" className="text-[#7800ce] text-sm hover:opacity-80">
-                Cookie Policy
+              <a href="https://get.bayzat.com/copyright/" target="_blank" rel="noopener noreferrer" className="text-[#7800ce] text-sm hover:opacity-80">
+                Copy right
               </a>
             </div>
           </div>

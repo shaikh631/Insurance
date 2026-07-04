@@ -1,7 +1,38 @@
 import React from 'react'
 
+import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
+
+function useReveal() {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } }, { threshold: 0.1 });
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, []);
+  return [ref, visible];
+}
+
+function Reveal({ children, delay = 0 }) {
+  const [ref, visible] = useReveal();
+  return (
+    <div
+      ref={ref}
+      style={{ transitionDelay: `${delay}ms` }}
+      className={`transition-all duration-700 ease-out ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+    >
+      {children}
+    </div>
+  );
+}
 
 function About() {
+   useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const features = [
     {
@@ -31,26 +62,31 @@ function About() {
   ]
 
   return (
+    <Reveal delay={100}>
     <section id="about" className={`py-20 transition-colors bg-white border-blue-200`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           {/* Image */}
           <div className="hidden md:block">
+            <Reveal delay={500}>
             <div className={`rounded-xl p-8 h-80 flex items-center justify-center transition-colors bg-gradient-to-br from-blue-100 to-cyan-100`}>
               <svg className={`w-64 h-64 text-blue-600 `} fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
               </svg>
             </div>
+            </Reveal>
           </div>
 
           {/* Content */}
           <div className="space-y-6">
-            <h2 className={`text-4xl font-black leading-tight transition-colors text-slate-900`}>
-              Why Choose InsureCare?
-            </h2>
+            <Reveal delay={500}>
+              <h2 className={`text-4xl font-black leading-tight transition-colors text-slate-900`}>
+                Why Choose InsureCare?
+              </h2>
             <p className={`text-lg leading-8 transition-colors text-gray-600`}>
               With over 20 years of experience in the insurance industry, we've helped thousands of customers protect what matters most to them. Our commitment to customer satisfaction and transparent policies sets us apart.
             </p>
+             </Reveal>
 
             <div className="space-y-4">
               {features.map((feature) => (
@@ -63,6 +99,7 @@ function About() {
                       </svg>
                     </div>
                   </div>
+                  <Reveal delay={300}>
                   <div>
                     <h3 className={`text-xl font-bold transition-colors text-gray-900`}>
                       {feature.title}
@@ -71,6 +108,7 @@ function About() {
                       {feature.description}
                     </p>
                   </div>
+                  </Reveal>
                 </div>
               ))}
             </div>
@@ -82,6 +120,8 @@ function About() {
         </div>
       </div>
     </section>
+    </Reveal>
+
   )
 }
 

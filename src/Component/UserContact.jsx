@@ -4,17 +4,19 @@ const FORMSPREE_ENDPOINT = import.meta.env.VITE_FORMSPREE_ENDPOINT
 const locations = [
   {
     city: "Dubai, UAE",
-    name: "Emirates Financial Towers",
-    address: "Level 12, North Tower, DIFC, Dubai, United Arab Emirates",
+    name: "Gate Avenue at DIFC",
+    address: "Gate Avenue, Zone D, DIFC - UAE",
     timezone: "GMT +4",
     img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&fit=crop",
+    map: "https://www.google.com/maps/place/Gate+Avenue+at+DIFC/@25.2104042,55.2764061,966m/data=!3m1!1e3!4m6!3m5!1s0x3e5f428fba7eb81b:0x8d79bc16133a9cd6!8m2!3d25.2103402!4d55.2783856!16s%2Fg%2F11c2l24l65!5m1!1e2",
   },
   {
-    city: "London, UK",
-    name: "Canary Wharf Center",
-    address: "25 Canada Square, Canary Wharf, London, United Kingdom",
-    timezone: "GMT +0",
+    city: "Dubai, UAE",
+    name: "Falcon House",
+    address: "304, Falcon House, DIP - UAE",
+    timezone: "GMT +4",
     img: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&fit=crop",
+    map : "https://www.google.com/maps/place/Falcon+House/@25.0013744,55.1533734,1211m/data=!3m1!1e3!4m6!3m5!1s0x3e5f6d5ebbf18d5b:0x842cfdfc68cb8dd1!8m2!3d25.0034698!4d55.1546043!16s%2Fg%2F11f3r71f9n!5m1!1e2?entry=tts&g_ep=EgoyMDI1MDUwNS4wIPu8ASoASAFQAw%3D%3D&skid=670a439e-c9e7-490f-9a50-cabaf6cd08f7",
   },
 ];
 
@@ -190,7 +192,7 @@ export default function UserContact() {
                   onChange={handleChange}
                   required
                   disabled={loading}
-                    className={inputClass("email")}
+                  className={inputClass("email")}
                   />
                 </div>
               </div>
@@ -326,7 +328,7 @@ export default function UserContact() {
                     <hr className="border-[#d9e3f6] mb-4" />
                     <div className="flex justify-between items-center">
                       <span className="text-xs text-[#4d4354]">{loc.timezone}</span>
-                      <a href="#" className="text-[#7800ce] font-semibold text-sm hover:underline flex items-center gap-1">
+                      <a href={loc.map} target="_blank" rel="noopener noreferrer" className="text-[#7800ce] font-semibold text-sm hover:underline flex items-center gap-1">
                         View Map <span className="material-symbols-outlined text-sm">open_in_new</span>
                       </a>
                     </div>
@@ -347,8 +349,11 @@ export default function UserContact() {
             <input
               type="email"
               placeholder="Enter your email"
-              value={newsletter}
-              onChange={(e) => setNewsletter(e.target.value)}
+              value={formData.email}
+              onChange={(e) => setFormData({...formData, email: e.target.value})}
+              required
+              disabled={loading}
+              className={inputClass("email")}
               className="flex-grow px-6 py-4 rounded-full border border-[#cfc2d7] focus:border-[#7800ce] focus:ring-1 focus:ring-[#7800ce] outline-none bg-white text-[#121c2a] placeholder-[#7e7386]"
             />
             <button className="bg-[#7800ce] text-white px-8 py-4 rounded-full font-semibold shadow-md hover:bg-[#6800b4] transition-all active:scale-95 whitespace-nowrap">

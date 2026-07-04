@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import logo from '../assets/logo.jpeg';
 
 const navItems = [
@@ -10,14 +10,13 @@ const navItems = [
 ]
 
 function Header({ navigateTo }) {
-  const [activeSection, setActiveSection] = useState('home');
   return (
     <header className="w-full sticky top-0 z-50 bg-white shadow-sm">
       <nav className="flex justify-between items-center px-12 py-4 max-w-7xl mx-auto">
         {/* Logo */}
 <div
   className="flex items-center gap-3 cursor-pointer"
-  onClick={() => navigate("/")}
+    onClick={() => navigateTo && navigateTo('home')}
 >
   <div className="flex flex-col">
     <div className="flex items-center text-[#964AF9]">
@@ -41,25 +40,26 @@ function Header({ navigateTo }) {
           <ul className="flex gap-0 list-none m-0 p-0">
             {navItems.map((item) => (
               <li key={item.slug}>
-                <Link
+                <NavLink
                   to={item.slug}
                   onClick={() => {
                     const section = item.slug.replace('/', '') || 'home';
-                    setActiveSection(section);
                     navigateTo && navigateTo(section);
                   }}
-                  className={`px-4 py-2 text-sm font-medium ${
-                    activeSection === (item.slug.replace('/', '') || 'home')
-                      ? 'text-[#7800ce] border-b-2 border-[#7800ce]'
-                      : 'text-[#666666] border-b-2 border-transparent hover:text-[#7800ce]'
-                  }`}
+                  className={({ isActive }) =>
+                    `px-4 py-2 text-sm font-medium duration-200 ${
+                      isActive
+                        ? 'text-[#7800ce] border-b-2 border-[#7800ce]'
+                        : 'text-[#666666] border-b-2 border-transparent'
+                    } hover:text-[#7800ce]`
+                  }
                 >
                   {item.name}
-                </Link>
+                </NavLink>
               </li>
             ))}
           </ul>
-        </nav>
+</nav>
 
         {/* Auth Buttons */}
         <div className="flex items-center gap-3">
